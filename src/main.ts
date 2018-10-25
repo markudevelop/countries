@@ -26,5 +26,4 @@ export const translateCountries = (countries: ICountry[] = [], language: string)
         .map(country => country.translations);
 }
 
-translateCountries(countries, language).forEach(translation => console.log(translation));
-
+translateCountries(countries, language).forEach(translation => console.log(translation[language].official));
