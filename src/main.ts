@@ -16,27 +16,15 @@ interface ICountry {
     translations: ITranslation;
 }
 
-export const printTranslatedCountries = (countries: ICountry[] = [], language: string): ITranslation[] => {
+export const translateCountries = (countries: ICountry[] = [], language: string): ITranslation[] => {
     if (!language) {
         throw new Error('Language key is requred');
     }
 
-    const translatedCountries: ITranslation[] = [];
-
-    countries.forEach((country: ICountry) => {
-        const countryTranslated = country.translations && country.translations[language];
-
-        if (countryTranslated) {
-            const official = country.translations[language].official;
-            const common = country.translations[language].common;
-
-            translatedCountries.push({ [language]: { official, common } });
-            console.log(official);
-        }
-    });
-
-    return translatedCountries;
+    return countries
+        .filter(country => country.translations && country.translations[language])
+        .map(country => country.translations);
 }
 
+translateCountries(countries, language).forEach(translation => console.log(translation));
 
-printTranslatedCountries(countries, language);

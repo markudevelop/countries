@@ -1,5 +1,5 @@
 
-import { printTranslatedCountries } from './main';
+import { translateCountries } from './main';
 import { expect } from 'chai';
 import 'mocha';
 
@@ -52,28 +52,23 @@ const mockedCountry = {
 
 describe('Print translated countries', () => {
 
-  it('should print country translation', () => {
-    const result = printTranslatedCountries([mockedCountry], 'cym');
+  it('should return translated country', () => {
+    const result = translateCountries([mockedCountry], 'cym');
     expect(result[0]).to.deep.include({ cym: mockedCountry.translations.cym });
   });
 
-  it('should return translated country', () => {
-    const result = printTranslatedCountries([mockedCountry], 'cym');
-    expect(result[0]).to.deep.equal({ cym: mockedCountry.translations.cym });
-  });
-
   it('should throw if no language key', () => {
-    const translate = () => printTranslatedCountries([mockedCountry], null as any);
+    const translate = () => translateCountries([mockedCountry], null as any);
     expect(translate).to.throw();
   });
 
   it('should print successfully with missing translation key', () => {
-    const result = printTranslatedCountries([mockedCountry], 'NONEXISTING');
+    const result = translateCountries([mockedCountry], 'NONEXISTING');
     expect(result).to.be.an('array').that.is.empty;
   });
 
   it('should return translated results as an array', () => {
-    const result = printTranslatedCountries([mockedCountry], 'cym');
+    const result = translateCountries([mockedCountry], 'cym');
     expect(result).to.be.an('array').to.have.length.of.at.most(1);
   });
 
